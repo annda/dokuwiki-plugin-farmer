@@ -173,6 +173,8 @@ class admin_plugin_farmer_new extends DokuWiki_Admin_Plugin {
      * @throws Exception
      */
     protected function createNewAnimal($name, $adminSetup, $adminPassword, $template, $aclpolicy, $userreg) {
+        /** @var DokuWikiFarmCore $FARMCORE */
+        global $FARMCORE;
         $animaldir = DOKU_FARMDIR . $name;
 
         // copy basic template
@@ -182,7 +184,7 @@ class admin_plugin_farmer_new extends DokuWiki_Admin_Plugin {
             return false;
         }
 
-        // copy animal template
+        // use another animal as a template and copy its config and data
         if($template != '') {
             foreach(array('conf', 'data/pages', 'data/media', 'data/meta', 'data/media_meta', 'index') as $dir) {
                 $templatedir = DOKU_FARMDIR . $template . '/' . $dir;
@@ -199,6 +201,18 @@ class admin_plugin_farmer_new extends DokuWiki_Admin_Plugin {
                 }
             }
         }
+
+        // copy farmer's view template and style settings if inheritance is globally configured
+        if (!empty($FARMCORE->getConfig()['inherit']['globaltemplate'])) {
+            $dir = 'conf/tpl';
+            if(!is_dir($dir) || !$this->helper->io_copyDir($dir, $animaldir . '/' . $dir)) {
+                msg(sprintf($this->getLang('animal template copy error'), $dir), -1);
+            }
+        }
+
+
+
+
 
         // append title to local config
         $ok &= io_saveFile($animaldir . '/conf/local.php', "\n" . '$conf[\'title\'] = \'' . $name . '\';' . "\n", true);

@@ -28,6 +28,7 @@ class DokuWikiFarmCore {
         ),
         'inherit' => array(
             'main' => 1,
+            'globaltemplate' => 1,
             'acronyms' => 1,
             'entities' => 1,
             'interwiki' => 1,
@@ -314,6 +315,9 @@ class DokuWikiFarmCore {
                 $config_cascade['plainauth.users']['protected'] = DOKU_INC . 'conf/users.auth.php';
             } elseif($key == 'plugins') {
                 $append = array('default' => array(DOKU_INC . 'conf/plugins.local.php'));
+            } elseif ($key == 'globaltemplate') {
+                // skip farmer template inheritance setting
+                unset($this->config['inherit'][$key]);
             } else {
                 $append = array('default' => array(DOKU_INC . 'conf/' . $key . '.local.conf'));
             }

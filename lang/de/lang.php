@@ -47,6 +47,7 @@ $lang['farm host'] = 'Farmer Host Name';
 $lang['base domain'] = 'Basis-Domain für Subdomain-Animals';
 $lang['conf_inherit'] = 'Farmer-Einstellungen die von Animals geerbt werden sollen';
 $lang['conf_inherit_main'] = 'Konfigurationseinstellungen';
+$lang['conf_inherit_globaltemplate'] = 'Template inklusive Anpassungen';
 $lang['conf_inherit_acronyms'] = 'Abkürzungs-Definitionen';
 $lang['conf_inherit_entities'] = 'Entity-Definitionionen';
 $lang['conf_inherit_interwiki'] = 'Interwiki-Definitionen';
