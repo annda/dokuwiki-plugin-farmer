@@ -12,6 +12,9 @@
  * @license GPL 2 http://www.gnu.org/licenses/gpl-2.0.html
  * @author  Andreas Gohr <gohr@cosmocode.de>
  */
+
+require_once(__DIR__ . '/../../../inc/template.php');
+
 class DokuWikiFarmCore {
     /**
      * @var array The default config - changed by loadConfig
@@ -28,6 +31,7 @@ class DokuWikiFarmCore {
         ),
         'inherit' => array(
             'main' => 1,
+            'globaltemplate' => 1,
             'acronyms' => 1,
             'entities' => 1,
             'interwiki' => 1,
@@ -314,6 +318,8 @@ class DokuWikiFarmCore {
                 $config_cascade['plainauth.users']['protected'] = DOKU_INC . 'conf/users.auth.php';
             } elseif($key == 'plugins') {
                 $append = array('default' => array(DOKU_INC . 'conf/plugins.local.php'));
+            } elseif ($key == 'globaltemplate') {
+                $config_cascade['globaltemplate']['global'] = DOKU_INC . 'conf/tpl/' . tpl_basedir() . '/style.ini';
             } else {
                 $append = array('default' => array(DOKU_INC . 'conf/' . $key . '.local.conf'));
             }
